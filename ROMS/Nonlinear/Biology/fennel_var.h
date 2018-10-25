@@ -310,7 +310,7 @@
 #ifdef OXYGEN
               CASE ('idRtrc(iOxyg)')
                 idRtrc(iOxyg)=varid
-# ifdef OXYGEN
+# ifdef OXYGEN_VIRT
               CASE ('idRtrc(iOxyV)')
                 idRtrc(iOxyV)=varid
 # endif
