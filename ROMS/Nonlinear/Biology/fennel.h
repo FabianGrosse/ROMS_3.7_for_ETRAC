@@ -767,6 +767,40 @@
 # endif
                 Att=(AttSW(ng)+AttChl(ng)*Bio(i,k,iChlo)+    &
      &              fac1)*(z_w(i,j,k)-z_w(i,j,k-1))
+#elif defined BYECS2
+!  Include additional light attanuation using a salinity- and depth-related attenuation factor.
+!  This is att3 => salinity factor
+                AttFac=MAX(-0.003_r8*Bio(i,k,isalt)+0.088_r8, 0.0_r8)
+!  This is att6 => depth factor
+!  original code by Haiyan Zhang
+!                fac1=0.1_r8
+!                IF (z_r(i,j,1).gt.-200.0_r8) THEN
+!                   fac1=0.1_r8
+!                END IF
+!                IF (z_r(i,j,1).gt.-100.0_r8) THEN
+!                   fac1=0.12_r8
+!                END IF
+!                IF (z_r(i,j,1).gt.-20.0_r8) THEN
+!                   fac1=0.15_r8+0.1_r8
+!                END IF
+!                IF (z_r(i,j,1).gt.-10.0_r8) THEN
+!                   fac1=0.2_r8+0.2_r8+0.1_r8
+!                END IF
+!
+!  updated code (for slightly better performance) by Fabian Grosse
+                fac1=0.1_r8
+                IF (z_r(i,j,1).gt.-10.0_r8) THEN
+                   fac1=0.5_r8
+                ELSE IF (z_r(i,j,1).gt.-20.0_r8) THEN
+                   fac1=0.25_r8
+                ELSE IF (z_r(i,j,1).gt.-100.0_r8) THEN
+                   fac1=0.12_r8
+                END IF
+                
+                Att=(AttSW(ng)+                                         &
+     &               AttChl(ng)*Bio(i,k,iChlo)+                         &
+     &               AttFac+fac1)*                                      &
+     &               (z_w(i,j,k)-z_w(i,j,k-1))
 #else 
                 Att=(AttSW(ng)+                                         &
      &               AttChl(ng)*Bio(i,k,iChlo)+                         &
@@ -1103,7 +1137,7 @@
 #ifdef OXYGEN
               Bio(i,k,iOxyg)=Bio(i,k,iOxyg)-                            &
      &                       rOxNH4*(N_Flux_Zmetabo+N_Flux_Zexcret)
-# ifdef OXYGEN
+# ifdef OXYGEN_VIRT
               Bio(i,k,iOxyV)=Bio(i,k,iOxyV)-                            &
      &                       rOxNH4*(N_Flux_Zmetabo+N_Flux_Zexcret)
 # endif
