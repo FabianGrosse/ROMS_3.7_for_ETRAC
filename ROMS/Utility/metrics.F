@@ -33,7 +33,7 @@
       USE mod_sedbed
 #endif
 #if defined TBNT_OUT && defined BIO_FENNEL && \
-    defined BIO_SEDIMENT && defined DENITRIFICATION && \ 
+    defined BIO_SEDIMENT && defined DENITRIFICATION && \
     defined SOLVE3D
       USE mod_tbnt
 #endif
