@@ -528,7 +528,7 @@
 !  Set time-stepping according to the number of iterations.
 !
       dtdays=dt(ng)*sec2day/REAL(BioIter(ng),r8)
-#if defined DIAGNOSTICS_BIO || \ 
+#if defined DIAGNOSTICS_BIO || \
     (defined TBNT_OUT  && defined BIO_SEDIMENT && \
      defined DENITRIFICATION && defined SOLVE3D)
 !
