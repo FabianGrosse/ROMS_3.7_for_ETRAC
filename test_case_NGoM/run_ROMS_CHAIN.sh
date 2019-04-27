@@ -83,8 +83,8 @@ FIRSTYEAR=2000
 LASTYEAR=2011
 
 # if timeMode==2: provide total NTIMES and maximum NTIMES for single job
-NTIMES_TOT=7200    # 7200 => 5 days for dt=60s; 8942400 => 17 years (2000-2016; for dt=60s)
-NTIMES_MAX=527040  # 366 days (for dt=60s)
+NTIMES_TOT=7200    # 7200 => 5 days (for dt=60s); 8942400 => 17 years (2000-2016; for dt=60s)
+NTIMES_MAX=7200    # 527040 => 366 days (for dt=60s)
 
 # define SLURM job settings
 # (account name, memory per CPU, job name, email of user
@@ -94,7 +94,7 @@ JOB_NAME=${SIMID}_CHAIN
 USER_EMAIL='fabian.grosse@dal.ca'
 # time limit: days, hours, minutes and seconds; individual 2-digit strings
 JOB_DD='00' # days
-JOB_HH='15' # hours
+JOB_HH='02' # hours
 JOB_MM='59' # minutes
 JOB_SS='00' # seconds
 
@@ -235,8 +235,8 @@ while [ ${IJOB} -le ${NJOBS} ]; do
 	# calculate time limit for last job
 	# (use 'bc' for floating point treatment and remove decimal digits with 'cut')
 	JOB_TIME_SEC=$(bc <<< "scale=5; $NTIMES_LAST/$NTIMES_MAX*$JOB_TIME_SEC" | cut -d '.' -f 1)
-        let TIME_DAY=JOB_TIME_SEC/86400          # get number of day
-	let TIME_SEC=JOB_TIME_SEC-TIME_DAY*86400 # update total seconds (minus days; time conversion with date not applicable for "days")
+        let TIME_DAY=JOB_TIME_SEC/86400               # get number of day
+	let TIME_SEC=JOB_TIME_SEC-TIME_DAY*86400+3600 # update total seconds (add extra hour)
 	JOB_TIME_STR="$(printf "%02d" $TIME_DAY)-$(date -u -d "@${TIME_SEC}" "+%H:%M:%S")"
       fi
       JOB_TIME=${JOB_TIME_STR}
@@ -247,8 +247,8 @@ while [ ${IJOB} -le ${NJOBS} ]; do
   else
     # update time limit for continuation of incomplete
     TIME_SEC=$(bc <<< "scale=5; $NTIMES_LEFT/$NTIMES*$JOB_TIME_SEC" | cut -d '.' -f 1)
-    let TIME_DAY=TIME_SEC/86400          # get number of day
-    let TIME_SEC=TIME_SEC-TIME_DAY*86400 # update total seconds (minus days; time conversion with date not applicable for "days")
+    let TIME_DAY=TIME_SEC/86400               # get number of day
+    let TIME_SEC=TIME_SEC-TIME_DAY*86400+3600 # update total seconds (add extra hour)
     JOB_TIME="$(printf "%02d" $TIME_DAY)-$(date -u -d "@${TIME_SEC}" "+%H:%M:%S")"
     let NTIMES=NTIMES_LEFT
   fi
