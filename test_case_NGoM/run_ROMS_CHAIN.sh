@@ -36,6 +36,9 @@ SIMID=MCH-TEST
 # define if job is a new job, i.e., starting from initialisation: yes (1) or no (0)?
 newJob=1
 
+# submit job (1) or not (0)? Deactivation of job submission is recommended for testing of a new setup.
+submitJob=1
+
 # set directories for input, output and temporary files
 inputPath=/scratch/grosse/infiles
 outputPath=/scratch/grosse/roms854_${SIMID}_CHAIN-JOB
@@ -71,16 +74,16 @@ DT=60
 N_RST=1440
 
 # select time mode
-# 1 => run complete years for defined period (startYear to endYear)
-# 2 => run defined number of NTIMES
-timeMode=1
+# 1 => run complete years for defined period (FIRSTYEAR to LASTYEAR)
+# 2 => run defined number of NTIMES (recommended for testing purposes)
+timeMode=2
 
 # if timeMode==1: provide start and end year
 FIRSTYEAR=2000
-LASTYEAR=2001
+LASTYEAR=2011
 
 # if timeMode==2: provide total NTIMES and maximum NTIMES for single job
-NTIMES_TOT=8942400 # 17 years (2000-2016; for dt=60s)
+NTIMES_TOT=7200    # 7200 => 5 days for dt=60s; 8942400 => 17 years (2000-2016; for dt=60s)
 NTIMES_MAX=527040  # 366 days (for dt=60s)
 
 # define SLURM job settings
@@ -328,7 +331,13 @@ while [ ${IJOB} -le ${NJOBS} ]; do
     # job is submitted first, job ID is determined afterwards
     # This is necessary to avoid problems related to slurm issues
     #let slurmJobID="$(sbatch ${runFile} | cut -d ' ' -f 4)"
-    sbatch ${runFile}
+    if [ $submitJob -eq 1 ]; then
+       sbatch ${runFile}
+    else
+       echo "Simulations files prepared and copied to ${tmpPath}."
+       echo "Use ${tmpPath}/${runFile} for manual job submission."
+       exit
+    fi
     # sleep until job has started (i.e., until "jobStart" file exists)
     running=0
     while [ ${running} -eq 0 ]; do
