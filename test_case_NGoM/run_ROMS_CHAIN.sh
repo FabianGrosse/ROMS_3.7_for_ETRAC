@@ -34,6 +34,7 @@ debug=0
 SIMID=MCH-TEST
 
 # define if job is a new job, i.e., starting from initialisation: yes (1) or no (0)?
+# If no, you need to provide a restart file complying with your choice of the PERFECT_RESTART option
 newJob=1
 
 # submit job (1) or not (0)?
