@@ -79,12 +79,12 @@ end
 # determine the name of the ".h" header file with the application
 # CPP definitions.
 
-setenv ROMS_APPLICATION      MCH_BIO_TBNT
+setenv ROMS_APPLICATION      MCH_BIO_ETRAC
 
 # Set a local environmental variable to define the path to the directories
 # where all this project's files are kept.
 
-setenv MY_ROOT_DIR           ${HOME}/ROMS/roms854_TBNT
+setenv MY_ROOT_DIR           ${HOME}/ROMS_3.7_for_ETRAC
 setenv MY_PROJECT_DIR        ${PWD}
 
 # The path to the user's local current ROMS source code.
