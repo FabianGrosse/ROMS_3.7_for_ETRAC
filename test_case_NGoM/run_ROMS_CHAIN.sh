@@ -36,8 +36,10 @@ SIMID=MCH-TEST
 # define if job is a new job, i.e., starting from initialisation: yes (1) or no (0)?
 newJob=1
 
-# submit job (1) or not (0)? Deactivation of job submission is recommended for testing of a new setup.
-submitJob=1
+# submit job (1) or not (0)?
+# Deactivation of job submission is recommended for testing of a new setup.
+# Activation is required for multi-job simulations.
+submitJob=0
 
 # set directories for input, output and temporary files
 inputPath=/scratch/grosse/infiles
