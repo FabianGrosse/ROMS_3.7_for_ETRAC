@@ -68,7 +68,7 @@
 
 ! C-preprocessing Flag.
 
-    MyAppCPP = MCH_BIO_ETRAC
+    MyAppCPP = MCH_BIO
 
 ! Input variable information file name.  This file needs to be processed
 ! first so all information arrays can be initialized properly.
