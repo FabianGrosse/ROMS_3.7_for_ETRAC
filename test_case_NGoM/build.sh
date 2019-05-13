@@ -1,4 +1,4 @@
-#!/bin/csh -f
+#!/bin/csh
 #
 # svn $Id: build.sh 835 2017-01-25 18:59:53Z arango $
 #:::::::::::::::::::::::::::::::::::::::::::::::::::::::::: John Wilkin :::
@@ -37,6 +37,11 @@
 # include file "mpif.h".                                                :::
 #                                                                       :::
 #::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+module purge
+module load hdf5-mpi
+module load netcdf-mpi
+module load netcdf-fortran-mpi
 
 set parallel = 0
 set clean = 1
