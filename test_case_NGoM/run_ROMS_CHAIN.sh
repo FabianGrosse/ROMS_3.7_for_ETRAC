@@ -127,7 +127,7 @@ else
     let NJOBS=${NTIMES_TOT}/${NTIMES_MAX}+1
     let NTIMES_LAST=$((NTIMES_TOT-(NJOBS-1)*NTIMES_MAX))
     if [ $NTIMES_LAST -eq 0 ]; then
-       NJOBS=0
+       NJOBS=1
     fi
   else
     echo "Invalid time mode - choose 1 (full years) or 2 (defined NTIMES)."
