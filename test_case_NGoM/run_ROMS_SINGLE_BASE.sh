@@ -37,7 +37,10 @@
 #SBATCH --error=%x-%j.err
 #
 # LOAD NETCDF LIBRARY
-module load netcdf-fortran/4.4.4
+module purge
+module load hdf5-mpi
+module load netcdf-mpi
+module load netcdf-fortran-mpi
 
 # SWITCH TO PROJECT DIRECTORY
 
