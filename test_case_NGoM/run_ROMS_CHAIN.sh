@@ -234,7 +234,7 @@ while [ ${IJOB} -le ${NJOBS} ]; do
       fi
     else
       # all jobs use NTIMES_MAX, except for last one
-      if [ ${IJOB} -lt ${NJOBS} ]; then
+      if [ ${IJOB} -lt ${NJOBS} ] || [ ${NJOBS} -eq 1 ]; then
         NTIMES=${NTIMES_MAX}
       else
         NTIMES=${NTIMES_LAST}
@@ -353,6 +353,12 @@ while [ ${IJOB} -le ${NJOBS} ]; do
         sleep 300
       fi
     done
+    # check for early job error
+    if [ -e jobEnd ]; then
+       echo -e "Simulation using ${runFile} and ${oceanFile} failed prematurely.\nCheck your log file: ${logFile}!" >> ${scriptLog}
+       echo -e "Simulation using ${runFile} and ${oceanFile} failed prematurely.\nCheck your log file: ${logFile}!" | mail -s "${SIMID}_${IJOB}-${RSTcount} failed" ${USER_EMAIL}
+       exit
+    fi
     # JOB STARTED => get job ID, remaining job time and start time
     gotInfo=0
     while [ ${gotInfo} -eq 0 ]; do
