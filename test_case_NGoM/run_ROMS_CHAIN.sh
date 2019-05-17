@@ -341,7 +341,7 @@ while [ ${IJOB} -le ${NJOBS} ]; do
        sbatch ${runFile}
     else
        echo "Simulations files prepared and copied to ${tmpPath}."
-       echo "Use ${tmpPath}/${runFile} for manual job submission."
+       echo "Change to ${tmpPath} and run 'sbatch ${runFile}' for manual job submission."
        exit
     fi
     # sleep until job has started (i.e., until "jobStart" file exists)
