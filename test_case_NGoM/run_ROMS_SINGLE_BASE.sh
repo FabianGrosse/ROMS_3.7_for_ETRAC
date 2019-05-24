@@ -2,7 +2,7 @@
 #
 # Project identification
 #
-# SBATCH --account=JOBACC_TMP   no need, this is setup in ~/.bashrc
+#SBATCH --account=JOBACC_TMP  # no need, this is setup in ~/.bashrc
 #
 # MAX. JOB LENGTH
 #
