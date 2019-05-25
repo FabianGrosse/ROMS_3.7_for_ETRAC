@@ -391,7 +391,7 @@ while [ ${IJOB} -le ${NJOBS} ]; do
     # sleep until job has finished (i.e. until "jobEnd" file exists or "time limit + 2min" is exceeded)
     while [ ${running} -eq 1 ]; do
       sleep 300
-      let runTime=runTime-60
+      let runTime=runTime-300
       if [ -e jobEnd ] || [ ${runTime} -lt -120 ]; then
         running=0
         echo -e "Job ${slurmJobID} ended:   `date`" >> ${scriptLog}
