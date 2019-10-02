@@ -91,19 +91,19 @@
      &                      PhyCN(ng), (/0/), (/0/),                    &
      &                      ncid = ncid)
       IF (exit_flag.ne.NoError) RETURN
-
+      
+#ifdef PO4
       CALL netcdf_put_fvar (ng, model, ncname, 'R_P2N',                 &
      &                      R_P2N(ng), (/0/), (/0/),                    &
      &                      ncid = ncid)
       IF (exit_flag.ne.NoError) RETURN
 
-#ifdef PO4
+#endif
       CALL netcdf_put_fvar (ng, model, ncname, 'PhyIP',                 &
      &                      PhyIP(ng), (/0/), (/0/),                    &
      &                      ncid = ncid)
       IF (exit_flag.ne.NoError) RETURN
-
-#endif
+      
       CALL netcdf_put_fvar (ng, model, ncname, 'PhyIS',                 &
      &                      PhyIS(ng), (/0/), (/0/),                    &
      &                      ncid = ncid)
